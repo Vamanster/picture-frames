@@ -104,7 +104,6 @@ slides.addEventListener('pointerdown', (e) => {
 });
 
 slides.addEventListener('touchstart', (e) => {
-	console.log("touchstart");
 	startX = e.touches[0].clientX;
 	isDragging = true;
 	hasMoved = false;
@@ -128,7 +127,6 @@ slides.addEventListener('pointermove', (e) => {
 });
 
 slides.addEventListener('touchmove', (e) => {
-	console.log("touchmove");
 	if (!isDragging) return;
 	
 	const diff = e.touches[0].clientX - startX;
@@ -174,7 +172,6 @@ slides.addEventListener('pointerup', (e) => {
 });
 
 slides.addEventListener('touchend', (e) => {
-	console.log("touchend");
 	if (!isDragging) return;
 
   isDragging = false;
@@ -262,3 +259,11 @@ slides.addEventListener('click', (e) => {
 
 document.getElementById("user-agent").textContent = "User Agent: " + navigator.userAgent;
 document.getElementById("device-type").textContent = "Touch Type: " + (mobileTouch() ? "Mobile/Tablet" : "Desktop");
+
+setInterval(() => {
+	document.getElementById("page-status").textContent = "Page: " + currentIndex;
+}, 100);
+
+setInterval(() => {
+	document.getElementById("debug-page").textContent = "isDragging: " + isDragging + " | hasMoved: " + hasMoved + " | currentTranslate: " + currentTranslate + " | startX: " + startX + " | window.innerWidth: " + window.innerWidth;
+}, 100);

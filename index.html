@@ -38,7 +38,8 @@
         <div class="menu-content">
             <h4 id="user-agent"></h4>
             <h4 id="device-type"></h4>
-            <div id="debug-console" style="
+            <h4 id="page-status"></h4>
+            <!-- <div id="debug-console" style="
             position:fixed;
             bottom:0;
             left:0;
@@ -50,12 +51,13 @@
             font-family:monospace;
             font-size:12px;
             padding:5px;
-            z-index:9999;">
+            z-index:9999;"> -->
             </div>
         </div>
     </div>
 
-    <script>
+    <p id="debug-page" style="position: fixed; top: 0%; left: 0%; width: 100%; height: 5vh;"></p>
+    <!-- <script>
     (function () {
         const container = document.getElementById("debug-console");
 
@@ -123,7 +125,7 @@
         });
 
     })();
-    </script>
+    </script> -->
 
     <input type="file" id="fileInput" style="display:none;" accept="image/*" />
     <script src="script.js"></script>
