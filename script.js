@@ -101,9 +101,14 @@ slides.addEventListener('pointerdown', (e) => {
   isDragging = true;
   hasMoved = false;
   slides.style.transition = "none";
+});
 
-  // Improves reliability when pointer leaves element
-  // slides.setPointerCapture(e.pointerId);
+slides.addEventListener('touchstart', (e) => {
+	console.log("touchstart");
+	startX = e.touches[0].clientX;
+	isDragging = true;
+	hasMoved = false;
+	slides.style.transition = "none";
 });
 
 slides.addEventListener('pointermove', (e) => {
@@ -122,11 +127,27 @@ slides.addEventListener('pointermove', (e) => {
   slides.style.transform = `translateX(${currentTranslate}px)`;
 });
 
+slides.addEventListener('touchmove', (e) => {
+	console.log("touchmove");
+	if (!isDragging) return;
+	
+	const diff = e.touches[0].clientX - startX;
+	
+	// Detect real drag (ignore tiny jitter)
+	if (Math.abs(diff) > DRAG_THRESHOLD) {
+		hasMoved = true;
+	}
+	
+	if (!hasMoved) return;
+	
+	currentTranslate = -currentIndex * slides.offsetWidth + diff;
+	slides.style.transform = `translateX(${currentTranslate}px)`;
+});
+
 slides.addEventListener('pointerup', (e) => {
   if (!isDragging) return;
 
   isDragging = false;
-  // slides.releasePointerCapture(e.pointerId);
 
   const diff = e.clientX - startX;
 
@@ -152,6 +173,35 @@ slides.addEventListener('pointerup', (e) => {
   setPosition();
 });
 
+slides.addEventListener('touchend', (e) => {
+	console.log("touchend");
+	if (!isDragging) return;
+
+  isDragging = false;
+
+  const diff = e.changedTouches[0].clientX - startX;
+
+  if (Math.abs(diff) < DRAG_THRESHOLD) {
+		if(e.changedTouches[0].clientX < window.innerWidth / 16 && currentIndex > 0) {
+			currentIndex--;
+		} else if (e.changedTouches[0].clientX > window.innerWidth - (window.innerWidth / 16) && currentIndex < slideCount - 1) {
+			currentIndex++;
+		}
+
+    setPosition();
+    return;
+  }
+
+  if (diff < -SWIPE_THRESHOLD && currentIndex < slideCount - 1) {
+    currentIndex++;
+  }
+
+  if (diff > SWIPE_THRESHOLD && currentIndex > 0) {
+    currentIndex--;
+  }
+
+  setPosition();
+});
 
 slides.addEventListener('click', (e) => {
   if (hasMoved) {
@@ -208,3 +258,7 @@ slides.addEventListener('click', (e) => {
 
 //   setPosition();
 // });
+
+
+document.getElementById("user-agent").textContent = "User Agent: " + navigator.userAgent;
+document.getElementById("device-type").textContent = "Touch Type: " + (mobileTouch() ? "Mobile/Tablet" : "Desktop");
