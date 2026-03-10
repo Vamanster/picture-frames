@@ -116,8 +116,9 @@
     background-color: whitesmoke;
     transition: all 0.3s ease;
     object-fit: contain;
-
+    pointer-events: auto;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 /* Page 1 */

@@ -40,7 +40,16 @@ for (let i = 0; i < frames.length; i++) {
 		frame.src = savedImage;
 	}
 
+	let lastTriggerTime = 0;
+
 	function triggerUpload() {
+		const now = Date.now();
+		// Prevent duplicate triggers within 500ms
+		if (now - lastTriggerTime < 500) {
+			return;
+		}
+		lastTriggerTime = now;
+
 		activeFrame = frame; // Remember which frame was clicked
 		fileInput.click();
 
@@ -54,6 +63,15 @@ for (let i = 0; i < frames.length; i++) {
 
 	frame.addEventListener("click", e => {
 		if (mobileTouch()) {
+			e.stopPropagation();
+			triggerUpload();
+		}
+	});
+
+	// iOS specific: add touchend listener to ensure tap works after swipe
+	frame.addEventListener("touchend", (e) => {
+		if (!isDragging && !hasMoved) {
+			e.stopPropagation();
 			triggerUpload();
 		}
 	});
