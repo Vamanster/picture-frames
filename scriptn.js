@@ -68,3 +68,53 @@ function clickFrame() {
         alert("Error: " + error.message);
     }
 }
+
+// --------------------------------------------------
+
+document.getElementById('imageInput').addEventListener('change', saveImageToLocalStorage);
+
+function saveImageToLocalStorage(event) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            // The result is the Base64 data URL string
+            const imageDataUrl = e.target.result;
+
+            try {
+                // Save the data URL string to localStorage
+                // 'savedImage' is the key, imageDataUrl is the value
+                localStorage.setItem('savedImage', imageDataUrl);
+                console.log('Image saved to localStorage successfully.');
+                alert('Image saved locally!');
+            } catch (e) {
+                console.error('Error saving image to localStorage:', e);
+                // Handle cases where storage limit is exceeded (localStorage has a small limit, usually 5MB)
+                alert('Could not save image. Storage limit might be reached.');
+            }
+        };
+
+        // Read the file as a DataURL format (Base64 string)
+        reader.readAsDataURL(file);
+    }
+}
+
+// Function to retrieve and display the image
+function fetchImageFromLocalStorage() {
+    // Get the data URL string using the key 'savedImage'
+    const imageDataUrl = localStorage.getItem('savedImage');
+
+    if (imageDataUrl) {
+        // Find an img element and set its src attribute to the data URL
+        const imgElement = document.getElementById('displayImage');
+        if (imgElement) {
+            imgElement.src = imageDataUrl;
+        }
+    }
+}
+
+function handleFileSelect(event) {
+    saveImageToLocalStorage(event);
+    fetchImageFromLocalStorage();
+}

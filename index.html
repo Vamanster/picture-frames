@@ -10,7 +10,8 @@
     <div class="slider">
         <div class="slides">
             <div class="slide">
-                <button class="frame frame-style-1" data-saved-image="1"></button>
+                <input type="file" id="imageInput" accept="image/*">
+                <button onclick="fetchImageFromLocalStorage()" class="frame frame-style-1" data-saved-image="1"><img id="displayImage" src="" alt=""></button>
                 <div class="center gap-small">
                     <button onclick="clickFrame()"><img src="" alt=" " class="frame frame-style-1" data-saved-image="1"></button>
                     <img src="" alt=" " class="frame frame-style-2" data-saved-image="2">
