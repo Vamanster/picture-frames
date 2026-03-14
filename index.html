@@ -10,6 +10,7 @@
     <div class="slider">
         <div class="slides">
             <div class="slide">
+                <button class="frame frame-style-1" data-saved-image="1"></button>
                 <div class="center gap-small">
                     <img src="" alt=" " class="frame frame-style-1" data-saved-image="1">
                     <img src="" alt=" " class="frame frame-style-2" data-saved-image="2">
@@ -39,95 +40,13 @@
             <h4 id="user-agent"></h4>
             <h4 id="device-type"></h4>
             <h4 id="page-status"></h4>
-            <!-- <div id="debug-console" style="
-            position:fixed;
-            bottom:0;
-            left:0;
-            width:100%;
-            max-height:40%;
-            overflow:auto;
-            background:#000;
-            color:#0f0;
-            font-family:monospace;
-            font-size:12px;
-            padding:5px;
-            z-index:9999;"> -->
             </div>
         </div>
     </div>
 
     <p id="debug-page" style="position: fixed; top: 0%; left: 0%; width: 100%; height: 5vh;"></p>
-    <!-- <script>
-    (function () {
-        const container = document.getElementById("debug-console");
-
-        function write(type, message) {
-            const line = document.createElement("div");
-            line.style.marginBottom = "4px";
-
-            const colors = {
-                log: "#0f0",
-                info: "#00c3ff",
-                warn: "#ffd11a",
-                error: "#ff4d4d",
-                promise: "#ff66ff"
-            };
-
-            line.style.color = colors[type] || "#fff";
-            line.textContent = `[${type}] ${message}`;
-            container.appendChild(line);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Override console methods
-        ["log", "info", "warn", "error"].forEach(method => {
-            const original = console[method];
-            console[method] = function (...args) {
-                const formatted = args.map(a =>
-                    typeof a === "object"
-                        ? safeStringify(a)
-                        : String(a)
-                ).join(" ");
-                write(method, formatted);
-                original.apply(console, args);
-            };
-        });
-
-        function safeStringify(obj) {
-            try {
-                return JSON.stringify(obj, null, 2);
-            } catch {
-                return "[Unserializable Object]";
-            }
-        }
-
-        // Uncaught JS errors
-        window.addEventListener("error", function (event) {
-            if (event.error) {
-                write("error",
-                    `${event.message} @ ${event.filename}:${event.lineno}:${event.colno}\n${event.error.stack || ""}`
-                );
-            } else {
-                // Resource loading error (img, script, etc.)
-                write("error",
-                    `Resource failed to load: ${event.target.src || event.target.href}`
-                );
-            }
-        }, true);
-
-        // Unhandled Promise rejections
-        window.addEventListener("unhandledrejection", function (event) {
-            write("promise",
-                event.reason && event.reason.stack
-                    ? event.reason.stack
-                    : String(event.reason)
-            );
-        });
-
-    })();
-    </script> -->
 
     <input type="file" id="fileInput" style="display:none;" accept="image/*" />
-    <script src="script.js"></script>
+    <script src="scriptn.js"></script>
 </body>
 </html>
