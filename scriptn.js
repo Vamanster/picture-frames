@@ -40,7 +40,6 @@ for (let i = 0; i < frames.length; i++) {
 	let lastTriggerTime = 0;
 
 	function triggerUpload(event) {
-        console.log("Trigger upload for frame", frame);
 		const now = Date.now();
 		// Prevent duplicate triggers within 500ms
 		if (now - lastTriggerTime < 500) {
@@ -49,7 +48,6 @@ for (let i = 0; i < frames.length; i++) {
 		lastTriggerTime = now;
 
 		activeFrame = frame; // Remember which frame was clicked
-		fileInput.click();
 
 		frame.style.transform = "scale(1.1)";
 		setTimeout(() => {
@@ -60,4 +58,8 @@ for (let i = 0; i < frames.length; i++) {
 	}
     
     frame.addEventListener("click", triggerUpload);
+}
+
+function clickFrame() {
+    fileInput.click();
 }
