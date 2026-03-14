@@ -61,5 +61,10 @@ for (let i = 0; i < frames.length; i++) {
 }
 
 function clickFrame() {
-    fileInput.click();
+    try {
+        fileInput.click();
+    }
+    catch (error) {
+        alert("Error: " + error.message);
+    }
 }
