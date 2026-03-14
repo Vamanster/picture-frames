@@ -112,7 +112,7 @@ function saveImageToLocalStorage(event) {
 // Function to resize the image while maintaining the aspect ratio
 function resizeImage(img) {
     // Define the maximum size for the image (e.g., 1024px on the largest side)
-    const MAX_SIZE = 1024;
+    const MAX_SIZE = 256;
 
     // Calculate the aspect ratio
     const aspectRatio = img.width / img.height;
